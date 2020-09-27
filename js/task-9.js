@@ -52,6 +52,42 @@
 При этом для проверок условия добавления использует результаты 
 вызовов других функций - isLoginUnique и isLoginValid. */
 
+const isLoginValid = (login, min = 4, max = 16) =>
+  login.length >= min && login.length <= max;
+
+const isLoginUnique = (allLogins, login) => !allLogins.includes(login);
+
+function addLogin(allLogins, login) {
+  const SUCCESS = 'Логин успешно добавлен!';
+  const REFUSAL = 'Такой логин уже используется!';
+  const ERROR = 'Ошибка! Логин должен быть размером от 4 до 16 символов';
+
+  if (isLoginValid(login) === false) {
+    return ERROR;
+  } else if (isLoginUnique(allLogins, login) === false) {
+    return REFUSAL;
+  } else {
+    allLogins.push(login);
+    console.log(allLogins);
+  }
+
+  return SUCCESS;
+}
+
+const logins = ['Mango', 'robotGoogles', 'Poly', 'Aj4x1sBozz', 'qwerty123'];
+
+console.log(addLogin(logins, 'Ajax'));
+// 'Логин успешно добавлен!'
+
+console.log(addLogin(logins, 'robotGoogles'));
+// 'Такой логин уже используется!'
+
+console.log(addLogin(logins, 'Zod'));
+// 'Ошибка! Логин должен быть от 4 до 16 символов'
+
+console.log(addLogin(logins, 'jqueryisextremelyfast'));
+// 'Ошибка! Логин должен быть от 4 до 16 символов'
+
 // рабочий вариант
 
 // const isLoginValid = login => login.length >= 4 && login.length <= 16;
@@ -109,65 +145,3 @@
 
 //   return SUCCESS;
 // }
-
-// const isLoginValid = (login, min = 4, max = 16) =>
-//   login.length >= min && login.length <= max;
-
-// const isLoginUnique = (allLogins, login) => !allLogins.includes(login);
-
-// function addLogin(allLogins, login) {
-//   const SUCCESS = 'Логин успешно добавлен!';
-//   const REFUSAL = 'Такой логин уже используется!';
-//   const ERROR = 'Ошибка! Логин должен быть размером от 4 до 16 символов';
-
-//   if (isLoginValid(login) === false) {
-//     return ERROR;
-//   } else if (isLoginUnique(allLogins, login) === false) {
-//     return REFUSAL;
-//   } else {
-//     allLogins.push(login);
-//     console.log(logins);
-//   }
-
-//   return SUCCESS;
-// }
-
-function isLoginValid(login, min = 4, max = 16) {
-  const loginValid = login.length >= min && login.length <= max;
-  return loginValid;
-}
-function isLoginUnique(allLogins, login) {
-  // Write code under this line
-  const loginUnique = allLogins.includes(login);
-  if (loginUnique === true) {
-    return false;
-  }
-  return true;
-}
-function addLogin(allLogins, login) {
-  const SUCCESS = 'Логин успешно добавлен!';
-  const REFUSAL = 'Такой логин уже используется!';
-  const ERROR = 'Ошибка! Логин должен быть размером от 4 до 16 символов';
-  let message;
-  if (isLoginValid(login) === false) {
-    return (message = ERROR);
-  } else if (isLoginUnique(logins, login) === true) {
-    allLogins.push(login);
-    return (message = SUCCESS);
-  }
-  return (message = REFUSAL);
-}
-
-const logins = ['Mango', 'robotGoogles', 'Poly', 'Aj4x1sBozz', 'qwerty123'];
-
-console.log(addLogin(logins, 'Ajax'));
-// 'Логин успешно добавлен!'
-
-console.log(addLogin(logins, 'robotGoogles'));
-// 'Такой логин уже используется!'
-
-console.log(addLogin(logins, 'Zod'));
-// 'Ошибка! Логин должен быть от 4 до 16 символов'
-
-console.log(addLogin(logins, 'jqueryisextremelyfast'));
-// 'Ошибка! Логин должен быть от 4 до 16 символов'
